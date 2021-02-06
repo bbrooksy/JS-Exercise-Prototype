@@ -39,9 +39,33 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
+ function Person( name, age ) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
+
+Person.prototype.eat = function ( someFood ){ 
+  if( this.stomach.length < 10 ){ 
+    this.stomach.push(someFood);
   }
+};
+
+Person.prototype.poop = function (){
+  this.stomach = [];
+};
+
+Person.prototype.toString = function (){
+  return `${this.name}, ${this.age}`;
+};
+
+
+
+
+
+
+  
+
  
  
 
@@ -63,9 +87,16 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
-  }
+ function Car( model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+}
+
+Car.prototype.fill = function( gallons ){
+  this.tank += gallons;
+};
   
   
   /*
@@ -75,18 +106,31 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
+ function Baby( name, age, favToy ) {
+  this.name = name;
+    this.age =age;
+    
+    Person.call(this, name, age );
+    this.favToy = favToy ;
+    
   }
+  
+  Baby.prototype = Object.create(Person.prototype);
+
+
+  Baby.prototype.play = function(favToy){
+  return `Playing with ${this.favToy}`;
+  };
+    
  
   
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. 'This' Is the global object
+    2. 'This' Has implicit binding (points to object on which the function is called)
+    3. If using the 'New' keyword, This inside an object is a new object
+    4. With apply,call, or bind, this can be use d as the object passed in as the argument.
   */
   
   
